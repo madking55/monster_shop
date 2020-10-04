@@ -84,7 +84,7 @@ Be careful to watch out for which stories allow full deletion of content, and re
 ## Deploying to Heroku
 
 ```
-[ ] done
+[X] done
 
 User Story 1, Deploy your application to Heroku
 
