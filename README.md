@@ -236,7 +236,7 @@ This series of stories will allow a user to register on the site.
 
 
 ```
-[ ] done
+[X] done
 
 User Story 10, User Registration
 
