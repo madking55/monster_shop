@@ -81,6 +81,19 @@ Disabled content should also be restricted from showing up in the statistics pag
 
 Be careful to watch out for which stories allow full deletion of content, and restrictions on when they apply.
 
+## Timeline 
+
+* Story 1 && Story 10 - Story 12 
+* Story 2 - Story 9, Story 13 - Story 16 
+* Story 17 - Story 22
+* Story 23 - Story 26
+* Story 27 - Story 31
+* Story 32 - Story 37
+* Story 38 - Story 41
+* Story 42 - Story 48
+* Story 49 - Story 51
+* Story 52 - 54
+
 ## Deploying to Heroku
 
 ```
