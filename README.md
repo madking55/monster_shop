@@ -274,7 +274,7 @@ And I see a flash message indicating that I am missing required fields
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 12, Registration Email must be unique
 
