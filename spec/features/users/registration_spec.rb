@@ -9,7 +9,8 @@ RSpec.describe 'User Registration' do
       expect(current_path).to eq(registration_path)
     end
 
-    it 'I can register as a user' do
+  describe 'I can register as a user if' do
+    it 'I fill in the registration form' do
       visit registration_path
 
       fill_in 'Name', with: 'Megan'
@@ -20,10 +21,27 @@ RSpec.describe 'User Registration' do
       fill_in 'Email', with: 'megan@example.com'
       fill_in 'Password', with: 'securepassword'
       fill_in 'Password confirmation', with: 'securepassword'
-      click_button 'Register'
+      click_button 'Register User'
 
       expect(current_path).to eq(profile_path)
       expect(page).to have_content('Welcome, Megan!')
+    end
+  end
+
+    describe 'I can not register as a user if' do
+      it 'I do not complete the registration form' do
+        visit registration_path
+
+        fill_in 'Name', with: 'Megan'
+        click_button 'Register User'
+
+        expect(page).to have_content("Address can't be blank")
+        expect(page).to have_content("City can't be blank")
+        expect(page).to have_content("State can't be blank")
+        expect(page).to have_content("Zip can't be blank")
+        expect(page).to have_content("Email can't be blank")
+        expect(page).to have_content("Password can't be blank")
+      end
     end
   end
 end
