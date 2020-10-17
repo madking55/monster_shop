@@ -262,7 +262,7 @@ I see a flash message indicating that I am now registered and logged in
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 11, User Registration Missing Details
 
