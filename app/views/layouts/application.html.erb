@@ -11,8 +11,13 @@
   <body>
     <nav class = "topnav">
       <%= link_to 'Home', root_path %>
-      <%= link_to 'Register', registration_path %>
-      <%= link_to 'Login', login_path %>
+      <%= link_to 'Register', registration_path unless current_user %>
+      <%= link_to 'Login', login_path unless current_user %>
+       <% if current_user %>
+         <%= link_to 'Logout', logout_path %>
+         <%= link_to 'Profile', profile_path %>
+         <p>Logged in as <%= current_user.name %></p>
+       <% end %>
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
