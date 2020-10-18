@@ -3,35 +3,75 @@ require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
   describe 'As a Visitor' do
-    it "I see a nav bar with links to all pages" do
-      visit '/merchants'
+    describe "I see a nav bar with links to" do
+      
+      it 'the welcome page' do
+        visit items_path
 
-      within 'nav' do
-        click_link 'All Items'
+        within 'nav' do
+          click_link 'Home'
+        end
+
+        expect(current_path).to eq(root_path)
       end
 
-      expect(current_path).to eq('/items')
+      it 'all items' do
+        visit merchants_path
 
-      within 'nav' do
-        click_link 'All Merchants'
+        within 'nav' do
+          click_link 'All Items'
+        end
+  
+        expect(current_path).to eq(items_path)
       end
 
-      expect(current_path).to eq('/merchants')
-    end
+      it 'all merchants' do
+        visit items_path
 
-    it "I can see a cart indicator on all pages" do
-      visit '/merchants'
+        within 'nav' do
+          click_link 'All Merchants'
+        end
 
-      within 'nav' do
-        expect(page).to have_content("Cart: 0")
+        expect(current_path).to eq(merchants_path)
       end
 
-      visit '/items'
+      it 'the registration page' do
+        visit root_path
 
-      within 'nav' do
-        expect(page).to have_content("Cart: 0")
+        within 'nav' do
+          click_link 'Register'
+        end
+
+        expect(current_path).to eq(registration_path)
       end
 
+      it 'the login page' do
+        visit root_path
+
+        within 'nav' do
+          click_link 'Login'
+        end
+
+        expect(current_path).to eq(login_path)
+      end
+
+      it 'my cart' do
+        visit merchants_path
+
+        within 'nav' do
+          click_link 'Cart'
+        end
+        
+        expect(current_path).to eq(cart_path)
+
+        visit items_path
+
+        within 'nav' do
+          click_link 'Cart'
+        end
+        
+        expect(current_path).to eq(cart_path)
+      end
     end
   end
 end
