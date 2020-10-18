@@ -143,7 +143,7 @@ Next to the shopping cart link I see a count of the items in my cart
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 3, User Navigation
 

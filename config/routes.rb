@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/users', to: 'users#create'
   get '/profile', to: 'users#show'
   get '/login', to: 'sessions#new'
+  get '/logout', to: 'sessions#logout'
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
