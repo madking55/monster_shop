@@ -15,4 +15,27 @@ RSpec.describe User, type: :model do
   describe 'relationships' do
     it {should belong_to(:merchant).optional}
   end
+
+  describe "roles" do
+    it "can be created as an admin" do
+      admin_user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword', role: 2)
+
+      expect(admin_user.role).to eq("admin")
+      expect(admin_user.admin?).to be_truthy
+    end
+
+    it 'can be created as merchant' do
+      merchant_user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword', role: 1)
+
+      expect(merchant_user.role).to eq("merchant")
+      expect(merchant_user.merchant?).to be_truthy
+    end
+
+    it "can be created as a default user" do
+      default_user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+
+      expect(default_user.role).to eq("default")
+      expect(default_user.default?).to be_truthy
+    end
+  end
 end
