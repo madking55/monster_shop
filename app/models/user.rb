@@ -10,4 +10,6 @@ class User < ApplicationRecord
                         :password
 
   validates_uniqueness_of :email
+
+  belongs_to :merchant, optional: true
 end

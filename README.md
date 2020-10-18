@@ -160,7 +160,7 @@ I also see text that says "Logged in as Mike Dao" (or whatever my name is)
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 4, Merchant Navigation
 
