@@ -30,4 +30,8 @@ class ApplicationController < ActionController::Base
   def require_admin
     render file: 'public/404', status: 404 unless current_admin?
   end
+
+  def exclude_admin
+    render file: 'public/404', status: 404 if current_admin?
+  end
 end
