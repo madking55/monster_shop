@@ -186,7 +186,7 @@ Minus the following links/info
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 6, Visitor Navigation Restrictions
 
