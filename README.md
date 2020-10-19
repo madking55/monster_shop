@@ -198,7 +198,7 @@ When I try to access any path that begins with the following, then I see a 404 e
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 7, User Navigation Restrictions
 
