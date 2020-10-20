@@ -336,7 +336,7 @@ And I see a flash message that tells me I am already logged in
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 16, User can log out
 
