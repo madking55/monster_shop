@@ -295,7 +295,7 @@ Our application wouldn't be much use if users could not log in to use it.
 
 
 ```
-[ ] done
+[X] done
 
 User Story 13, User can Login
 
