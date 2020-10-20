@@ -310,7 +310,7 @@ And I see a flash message that I am logged in
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 14, User cannot log in with bad credentials
 

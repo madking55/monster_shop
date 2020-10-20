@@ -2,9 +2,19 @@ class SessionsController < ApplicationController
   def new
   end
 
-  def create
+  def login
     user = User.find_by(email: params[:email])
-    session[:user_id] = user.id if user.authenticate(params[:password])
+    
+    if user && user.authenticate(params[:password])
+      login_redirect(user)
+    else
+      flash[:notice] = 'Your email or password was incorrect!'
+      render :new
+    end
+  end
+
+  def login_redirect(user)
+    session[:user_id] = user.id 
     if current_merchant_user?
       redirect_to merchant_dashboard_path
     elsif current_admin?
