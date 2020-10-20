@@ -323,7 +323,7 @@ I am NOT told whether it was my email or password that was incorrect
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 15, Users who are logged in already are redirected
 
