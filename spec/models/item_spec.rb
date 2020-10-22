@@ -56,13 +56,37 @@ describe Item, type: :model do
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      @wheel = @meg.items.create(name: "A bike wheel", description: "A super awesome wheel", price: 150, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 25)
+      @helmet = @meg.items.create(name: "Brain Cage", description: "A cage to protect your head", price: 150, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 70)
 
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+      @catnip = @brian.items.create(name: "Catnip", description: "It'll get your cat super high", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 50)
+      @scratch_pad = @brian.items.create(name: "Scratch Pad", description: "Pretty scratchy", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 5)
       @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
     end
 
     it '.active_items' do
-      expect(Item.active_items).to eq([@tire, @pull_toy])
+      expect(Item.active_items).to eq([@tire, @wheel, @helmet, @pull_toy, @catnip, @scratch_pad])
+    end
+
+    it '.by_popularity()' do
+      @order_1 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @order_2 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @order_3 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+
+      @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 6)
+      @order_2.item_orders.create!(item: @wheel, price: @wheel.price, quantity: 20)
+      @order_3.item_orders.create!(item: @helmet, price: @helmet.price, quantity: 50)
+      @order_1.item_orders.create!(item: @helmet, price: @tire.price, quantity: 10)
+      @order_2.item_orders.create!(item: @catnip, price: @catnip.price, quantity: 30)
+      @order_3.item_orders.create!(item: @catnip, price: @catnip.price, quantity: 10)
+      @order_1.item_orders.create!(item: @catnip, price: @catnip.price, quantity: 10)
+      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 1)
+      @order_1.item_orders.create!(item: @scratch_pad, price: @scratch_pad.price, quantity: 2)
+
+      expect(Item.by_popularity).to eq([@helmet, @catnip, @wheel, @tire, @scratch_pad])
+      expect(Item.by_popularity(3, "DESC")).to eq([@helmet, @catnip, @wheel])
+      expect(Item.by_popularity(3, "ASC")).to eq([@dog_bone, @pull_toy, @scratch_pad])
     end
   end
 end
