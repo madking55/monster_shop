@@ -86,7 +86,7 @@ describe Item, type: :model do
 
       expect(Item.by_popularity).to eq([@helmet, @catnip, @wheel, @tire, @scratch_pad])
       expect(Item.by_popularity(3, "DESC")).to eq([@helmet, @catnip, @wheel])
-      expect(Item.by_popularity(3, "ASC")).to eq([@pull_toy, @scratch_pad, @tire])
+      expect(Item.by_popularity(3, "ASC")).to eq([@dog_bone, @pull_toy, @scratch_pad])
     end
   end
 end
