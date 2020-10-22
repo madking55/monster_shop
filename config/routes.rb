@@ -20,17 +20,20 @@ Rails.application.routes.draw do
   end
 
   resources :reviews, only: [:edit, :update, :destroy]
-
+  resources :orders, only: [:new, :create, :show]
+  resources :users, only: [:create, :update]
+  # post '/users', to: 'users#create'
+  
   get '/cart', to: 'cart#show'
   post '/cart/:item_id', to: 'cart#add_item'
   delete '/cart', to: 'cart#empty'
   patch '/cart/:change/:item_id', to: 'cart#update_quantity'
   delete '/cart/:item_id', to: 'cart#remove_item'
-
-  resources :orders, only: [:new, :create, :show]
-
+  
+  
   get '/registration', to: 'users#new', as: :registration
-  post '/users', to: 'users#create'
+  
+  get '/profile/edit', to: 'users#edit'
   get '/profile', to: 'users#show'
 
   get '/login', to: 'sessions#new'
