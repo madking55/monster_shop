@@ -387,7 +387,7 @@ When a user who is not a merchant nor an admin logs into the system, they are ta
 Admin users can access a namespaced route of "/admin/users" to see an index page  of all non-merchant/non-admin users, and from there see each user. This will allow the admin to perform every action on a user's account that the user themselves can perform. This functionality is taken care of in User Stories 53 & 54.
 
 ```
-[ ] done
+[X] done
 
 User Story 19, User Profile Show Page
 
