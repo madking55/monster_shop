@@ -398,7 +398,7 @@ And I see a link to edit my profile data
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 20, User Can Edit their Profile Data
 
