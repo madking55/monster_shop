@@ -4,10 +4,11 @@ require 'rails_helper'
    describe "As a registered user" do
      before :each do
        @user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
-       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
      end
 
      it "I can view my profile page" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
        visit profile_path
 
        expect(page).to have_content(@user.name)
@@ -18,7 +19,9 @@ require 'rails_helper'
        expect(page).to have_link('Edit')
      end
 
-     it "I can update my profile data" do
+    it "I can update my profile data" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
       visit profile_path
       click_link 'Edit'
 
@@ -46,6 +49,46 @@ require 'rails_helper'
       expect(page).to have_content(email)
       expect(page).to have_content(address)
       expect(page).to have_content("#{city} #{state} #{zip}")
+    end
+
+    it 'I can edit my password' do
+      visit login_path
+
+       fill_in 'Email', with: @user.email
+       fill_in 'Password', with: @user.password
+       click_button 'Log In'
+
+       click_link 'Change Password'
+
+       expect(current_path).to eq('/profile/edit_password')
+
+       password = "newpassword"
+
+       fill_in "Password", with: password
+       fill_in "Password confirmation", with: password
+       click_button 'Change Password'
+
+       expect(current_path).to eq(profile_path)
+
+       expect(page).to have_content('Profile has been updated!')
+
+       click_link 'Logout'
+
+       visit login_path
+
+       fill_in 'Email', with: @user.email
+       fill_in 'Password', with: @user.password
+       click_button 'Log In'
+
+       expect(page).to have_content("Your email or password was incorrect!")
+
+       visit login_path
+
+       fill_in 'Email', with: @user.email
+       fill_in 'Password', with: "newpassword"
+       click_button 'Log In'
+
+       expect(current_path).to eq(profile_path)
     end
    end
  end

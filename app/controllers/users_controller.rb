@@ -33,6 +33,10 @@ class UsersController < ApplicationController
     redirect_to profile_path
   end
 
+  def edit_password
+    @user = current_user
+  end
+
   private
 
   def user_params
