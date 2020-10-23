@@ -416,7 +416,7 @@ And I see my updated information
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 21, User Can Edit their Password
 
