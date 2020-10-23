@@ -453,7 +453,7 @@ This is what this app is all about: how a user can put things in a shopping cart
 Merchant Employees can order items in addition to regular users. Admin can not order items. This should already be taken care of through the navigation restrictions you set in User Stories 5 & 9.
 
 ```
-[ ] done
+[x] done
 
 User Story 23, Adding Item Quantity to Cart
 

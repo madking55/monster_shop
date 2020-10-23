@@ -30,7 +30,8 @@
       </td>
       <td>
         <center>
-          <p><%=quantity%></p>
+         <%= link_to "<button>+</button>".html_safe, "/cart/more/#{item.id}", method: :patch %>
+          <p><%= quantity %></p>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>

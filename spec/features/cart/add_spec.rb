@@ -7,6 +7,7 @@ RSpec.describe 'Cart creation' do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
       @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+      @mug = @mike.items.create(name: "Mug", description: "This mug is ugly and chipped", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 3)
     end
 
     it "I see a link to add this item to my cart" do
@@ -31,6 +32,33 @@ RSpec.describe 'Cart creation' do
       within 'nav' do
         expect(page).to have_content("Cart: 2")
       end
+    end
+
+    it "I can increment the count of items I want to purchase" do
+
+      visit "/items/#{@pencil.id}"
+      click_on "Add To Cart"
+
+      expect(page).to have_content("Cart: 1")
+
+      visit '/cart'
+
+      4.times { click_link '+' }
+      expect(page).to have_content("5")
+    end
+
+
+    it "I can not increment the count of item beyond its inventory size" do
+
+      visit "/items/#{@mug.id}"
+      click_on "Add To Cart"
+
+      visit '/cart'
+
+      2.times { click_link '+' }
+      expect(page).to have_content("3")
+      2.times { click_link '+' }
+      expect(page).to have_content("3")
     end
   end
 end

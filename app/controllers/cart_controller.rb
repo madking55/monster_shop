@@ -22,5 +22,14 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
+  def update_quantity
+    item = Item.find(params[:item_id])
+    if params[:change] == 'more'
+      cart.add_item(params[:item_id]) unless item.inventory <= cart.contents[item.id.to_s]
+    end
+    session[:cart] = cart.contents
+    redirect_to '/cart'
+  end
+
 
 end
