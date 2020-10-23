@@ -3,7 +3,9 @@ require 'rails_helper'
  RSpec.describe 'User Profile Show Page' do
    describe "As a registered user" do
      before :each do
-       @user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+       @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+       @admin = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'admin@example.com', password: 'securepassword', role: 'admin')
+
      end
 
      it "I can view my profile page" do
@@ -89,6 +91,18 @@ require 'rails_helper'
        click_button 'Log In'
 
        expect(current_path).to eq(profile_path)
+    end
+
+    it "I must use a unique email address" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+      visit '/profile/edit'
+
+      fill_in "Email", with: @admin.email
+      click_button "Update Profile"
+
+      expect(page).to have_content("Email has already been taken")
+      expect(page).to have_button "Update Profile"
     end
    end
  end
