@@ -82,14 +82,23 @@ RSpec.describe 'Cart show' do
       it "I can not increment the count of item beyond its inventory size" do
         visit "/items/#{@mug.id}"
         click_on "Add To Cart"
+        visit "/items/#{@mug.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@mug.id}"
+        click_on "Add To Cart"
+
         visit '/cart'
   
         within "#cart-item-#{@mug.id}" do
-          2.times { click_link '+' }
           expect(page).to have_content("3")
-          2.times { click_link '+' }
-          expect(page).to have_content("3")
+          expect(page).to_not have_button('+')
         end
+
+        visit "/items/#{@mug.id}"
+
+        click_on 'Add To Cart'
+
+        expect(page).to have_content("You have all the item's inventory in your cart already!")
       end
 
       it 'I can reduce the quantity of an item in my cart' do
