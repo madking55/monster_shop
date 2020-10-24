@@ -43,6 +43,11 @@
   <% end %>
 </table>
   <p>Total: <%= number_to_currency(cart.total) %></p>
+  <section id="checkout">
+  <% unless current_user %>
+    <h4>You must <%= link_to 'register', registration_path %> or <%= link_to 'login', login_path %> to complete the checkout process</h4>
+  <% end %>
+  </section>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
   <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
 <% else %>

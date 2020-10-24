@@ -18,7 +18,7 @@ RSpec.describe 'Cart show' do
       @items_in_cart = [@paper,@tire,@pencil]
     end
 
-    it 'Theres a link to checkout' do
+    it 'There is a link to checkout' do
       visit "/cart"
 
       expect(page).to have_link("Checkout")
