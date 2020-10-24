@@ -466,7 +466,7 @@ I cannot increment the count beyond the item's inventory size
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 24, Decreasing Item Quantity from Cart
 

@@ -10,7 +10,7 @@
     <th>Quantity</th>
     <th>Subtotal</th>
   </tr>
-  <% @items.each do |item,quantity| %>
+  <% @items.each do |item, quantity| %>
     <tr id= "cart-item-<%=item.id%>">
       <td>
         <p align = "center">
@@ -30,8 +30,9 @@
       </td>
       <td>
         <center>
-         <%= link_to "<button>+</button>".html_safe, "/cart/more/#{item.id}", method: :patch %>
+          <%= link_to "<button>+</button>".html_safe, "/cart/more/#{item.id}", method: :patch %>
           <p><%= quantity %></p>
+          <%= link_to "<button>-</button>".html_safe, "/cart/less/#{item.id}", method: :patch %>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>

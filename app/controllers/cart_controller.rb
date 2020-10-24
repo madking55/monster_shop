@@ -26,10 +26,11 @@ class CartController < ApplicationController
     item = Item.find(params[:item_id])
     if params[:change] == 'more'
       cart.add_item(params[:item_id]) unless item.inventory <= cart.contents[item.id.to_s]
+    elsif params[:change] == 'less'
+      cart.contents[item.id.to_s] -= 1
+      return remove_item if cart.contents[item.id.to_s] == 0
     end
     session[:cart] = cart.contents
     redirect_to '/cart'
   end
-
-
 end
