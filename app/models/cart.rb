@@ -5,9 +5,21 @@ class Cart
     @contents = contents
   end
 
-  def add_item(item)
-    @contents[item] = 0 if !@contents[item]
-    @contents[item] += 1
+  def add_item(item_id)
+    @contents[item_id] = 0 if !@contents[item_id]
+    @contents[item_id] += 1
+  end
+
+  def limit_reached?(item_id)
+    count_of(item_id) == Item.find(item_id).inventory
+  end
+
+  def count_of(item_id)
+    @contents[item_id.to_s]
+  end
+
+  def less_item(item_id)
+    @contents[item_id] -= 1
   end
 
   def total_items

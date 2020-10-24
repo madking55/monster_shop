@@ -3,8 +3,12 @@ class CartController < ApplicationController
   
   def add_item
     item = Item.find(params[:item_id])
-    cart.add_item(item.id.to_s)
-    flash[:success] = "#{item.name} was successfully added to your cart"
+    if cart.limit_reached?(item.id)
+      flash[:notice] = "You have all the item's inventory in your cart already!"
+    else
+      cart.add_item(item.id.to_s) 
+      flash[:success] = "#{item.name} was successfully added to your cart"
+    end
     redirect_to "/items"
   end
 
@@ -25,11 +29,12 @@ class CartController < ApplicationController
   def update_quantity
     item = Item.find(params[:item_id])
     if params[:change] == 'more'
-      cart.add_item(params[:item_id]) unless item.inventory <= cart.contents[item.id.to_s]
+      cart.add_item(params[:item_id])
+    elsif params[:change] == 'less'
+      cart.less_item(params[:item_id])
+      return remove_item if cart.contents[item.id.to_s] == 0
     end
     session[:cart] = cart.contents
     redirect_to '/cart'
   end
-
-
 end
