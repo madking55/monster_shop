@@ -10,18 +10,28 @@ RSpec.describe 'Orders Index Page' do
       @paper = @mike.items.create!(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
       @pencil = @mike.items.create!(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-      visit "/items/#{@paper.id}"
-      click_on "Add To Cart"
-      visit "/items/#{@paper.id}"
-      click_on "Add To Cart"
-      visit "/items/#{@tire.id}"
-      click_on "Add To Cart"
-      visit "/items/#{@pencil.id}"
-      click_on "Add To Cart"
+     
+    end
+
+    it 'I can link to my orders from my profile' do
+      visit profile_path
+
+      click_link 'My Orders'
+
+      expect(current_path).to eq('/profile/orders')
     end
 
     describe 'check out and fill out order info' do
       it 'creates a new order with the "pending" status and it is associated with me as a user' do
+
+        visit "/items/#{@paper.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@paper.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@pencil.id}"
+        click_on "Add To Cart"
         visit '/cart'
         click_on 'Checkout'
 
@@ -44,6 +54,14 @@ RSpec.describe 'Orders Index Page' do
       end
 
       it 'I am redirected to my orders page with my new order listed and my cart empty' do
+        visit "/items/#{@paper.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@paper.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@pencil.id}"
+        click_on "Add To Cart"
         visit '/cart'
         click_on 'Checkout'
 
