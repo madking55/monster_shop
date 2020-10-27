@@ -492,7 +492,7 @@ The words "log in" is a link to the login page
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 26, Registered users can check out
 
