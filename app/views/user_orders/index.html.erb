@@ -1,0 +1,11 @@
+
+<h1>Orders by <%= @user.name %></h1>
+  <%= @user.orders.each do |order| %>
+  <h3>Order Details:</h3>
+  <p><%= order.items.each do |item| %></p>
+  <p><%= item.name %></p>
+  <% end %>
+  <p>Total: <%= order.grandtotal %></p>
+  <%= link_to "View More Order Details", "/orders/#{order.id}" %>
+  <% end %>
+ <br>

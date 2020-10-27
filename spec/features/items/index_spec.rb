@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Items Index Page" do
   describe "When I visit the items index page" do
     before(:each) do
+      @user = User.create!(name: "Megan", address: "123 North st", city: "Denver", state: "Colorado", zip: "80401", email: "12345@gmail.com", password: "password")
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
@@ -69,9 +70,9 @@ RSpec.describe "Items Index Page" do
     end
 
     it 'I can see the top most and least popular items' do
-      @order_1 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @order_2 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @order_3 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @order_1 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, user_id: @user.id)
+      @order_2 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, user_id: @user.id)
+      @order_3 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, user_id: @user.id)
 
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 6)
       @order_2.item_orders.create!(item: @wheel, price: @wheel.price, quantity: 20)
