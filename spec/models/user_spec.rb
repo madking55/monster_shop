@@ -14,6 +14,7 @@ RSpec.describe User, type: :model do
 
   describe 'relationships' do
     it {should belong_to(:merchant).optional}
+    it {should have_many :orders}
   end
 
   describe "roles" do

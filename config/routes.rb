@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   
   get '/profile/edit', to: 'users#edit'
   get '/profile', to: 'users#show'
+  get '/profile/orders', to: 'user_orders#index'
   get '/profile/edit_password', to: 'users#edit_password'
 
   get '/login', to: 'sessions#new'
