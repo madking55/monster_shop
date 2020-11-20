@@ -2,9 +2,17 @@
 <h1>Orders by <%= @user.name %></h1>
   <%= @user.orders.each do |order| %>
   <h3>Order Details:</h3>
-  <p><%= order.items.each do |item| %></p>
-  <p><%= item.name %></p>
-  <% end %>
+  <div id="order-<%= order.id %>">
+    <p><%= link_to "Order No:#{order.id}", "/orders/#{order.id}"%></p>
+    <p>Created On: <%= order.created_at %></p>
+    <p>Updated On: <%= order.updated_at %></p>
+    <p>Status: <%= order.status %></p>
+    <p><%= order.total_items_quantity %> items</p>
+    <p>Total: <%= number_to_currency(order.grandtotal) %></p>
+    <p><%= order.items.each do |item| %></p>
+    <p><%= item.name %></p>
+    <% end %>
+  </div>
   <p>Total: <%= order.grandtotal %></p>
   <%= link_to "View More Order Details", "/orders/#{order.id}" %>
   <% end %>
