@@ -9,11 +9,11 @@ RSpec.describe 'Order Show Page' do
       @paper = @mike.items.create!(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
       @pencil = @mike.items.create!(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
       @user = User.create!(name: "Bert", address: "123 Sesame St.", city: "NYC", state: "New York", zip: "10001", email: "12345@gmail.com", password: "password")
-      @order_1 = @user.orders.create!(name: "Bert", address: "123 Sesame St.", city: "NYC", state: "New York", zip: "10001")
-      @order_2 = @user.orders.create!(name: "Bert", address: "123 Sesame St.", city: "NYC", state: "New York", zip: "10001")
-      @order_item_1 = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      @order_item_2 = @order_2.item_orders.create!(item: @paper, price: @paper.price, quantity: 3)
-      @order_item_3 = @order_2.item_orders.create!(item: @pencil, price: @pencil.price, quantity: 1)
+      @order_1 = @user.orders.create!(name: "Bert", address: "123 Sesame St.", city: "NYC", state: "New York", zip: "10001", status: 'packaged')
+      @order_2 = @user.orders.create!(name: "Bert", address: "123 Sesame St.", city: "NYC", state: "New York", zip: "10001", status: 'pending')
+      @order_item_1 = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, fulfilled: true)
+      @order_item_2 = @order_2.item_orders.create!(item: @paper, price: @paper.price, quantity: 3, fulfilled: true)
+      @order_item_3 = @order_2.item_orders.create!(item: @pencil, price: @pencil.price, quantity: 1, fulfilled: false)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
@@ -52,6 +52,27 @@ RSpec.describe 'Order Show Page' do
         expect(page).to have_content('Quantity: 1')
         expect(page).to have_content('Subtotal: $2')
       end
+    end
+
+    it 'I can cancel an order' do
+      visit "/profile/orders/#{@order_2.id}"
+
+      click_link 'Cancel Order'
+      expect(current_path).to eq(profile_orders_path)
+      expect(@order_2.status).to eq('cancelled')
+      expect(page).to have_content("Status: cancelled")
+      expect(page).to have_content("Order #{@order_2.id} has just been cancelled")
+
+      @paper.reload
+      @pencil.reload
+
+      @order_item_2.reload
+      @order_item_3.reload
+
+      expect(@order_item_2.fulfilled).to be false
+      expect(@order_item_3.fulfilled).to be false
+      expect(@paper.inventory).to eq(6)
+      expect(@pencil.inventory).to eq(101)
     end
   end
 end

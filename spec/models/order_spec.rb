@@ -25,10 +25,10 @@ describe Order, type: :model do
 
       @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
 
-      @order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: @user.id)
+      @order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: @user.id, status: 'pending')
 
-      @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
+      @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, fulfilled: true)
+      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3, fulfilled: false)
     end
 
     it '#grandtotal' do
@@ -37,6 +37,16 @@ describe Order, type: :model do
 
     it '#total_items_quantity' do
       expect(@order_1.total_items_quantity).to eq(5)
+    end
+
+    it '#cancel' do
+      @order_1.cancel
+      @order_1.reload
+
+      expect(@order_1.status).to eq('cancelled')
+      @order_1.item_orders.each { |item_order| expect(item_order.fulfilled).to be false }
+      expect(@tire.inventory).to eq(14)
+      expect(@pull_toy.inventory).to eq(35)
     end
   end
 end

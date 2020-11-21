@@ -12,4 +12,12 @@ class Order <ApplicationRecord
   def total_items_quantity
     item_orders.sum(:quantity)
   end
+
+  def cancel
+    update(status: 'cancelled')
+    item_orders.each do |item_order|
+      item_order.update(fulfilled: false)
+      item_order.item.update(inventory: item_order.item.inventory + item_order.quantity)
+    end
+  end
 end
