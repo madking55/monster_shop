@@ -88,10 +88,11 @@ Be careful to watch out for which stories allow full deletion of content, and re
 * Story 17 - Story 22
 * Story 23 - Story 26
 * Story 27 - Story 30
-* Story 32 - Story 37
+* Story 31 - Story 33
+* Story 34 - Story 37
 * Story 38 - Story 41
 * Story 42 - Story 48
-* Story 49 - Story 51, Story 31
+* Story 49 - Story 51
 * Story 52 - 54
 
 ## Deploying to Heroku
@@ -635,7 +636,7 @@ This is the landing page when a merchant logs in. Here, they will see their cont
 Admin users will see more information on the "/admin/merchants" route that all users see. For example, on this page, an admin user can navigate to each merchant's dashboard under a route like "/admin/merchants/7". This will allow the admin to perform every action that the merchant themselves can perform. Fulfilling merchant items will be an extension in User Stories 61 & 62
 
 ```
-[ ] done
+[X] done
 
 User Story 34, Merchant Dashboard Show Page
 
