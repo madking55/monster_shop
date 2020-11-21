@@ -556,7 +556,7 @@ I see every order I've made, which includes the following information:
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 29, User views an Order Show Page
 

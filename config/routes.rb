@@ -29,12 +29,12 @@ Rails.application.routes.draw do
   patch '/cart/:change/:item_id', to: 'cart#update_quantity'
   delete '/cart/:item_id', to: 'cart#remove_item'
   
-  
   get '/registration', to: 'users#new', as: :registration
   
   get '/profile/edit', to: 'users#edit'
   get '/profile', to: 'users#show'
-  get '/profile/orders', to: 'user_orders#index'
+  get '/profile/orders', to: 'user/orders#index'
+  get '/profile/orders/:id', to: 'user/orders#show'
   get '/profile/edit_password', to: 'users#edit_password'
 
   get '/login', to: 'sessions#new'
