@@ -575,7 +575,7 @@ I see all information about the order, including the following information:
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 30, User cancels an order
 

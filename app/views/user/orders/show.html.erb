@@ -16,3 +16,5 @@
   <p>Subtotal: <%= number_to_currency(item_order.subtotal) %></p>
 </section>
 <% end %>
+
+<p><%= link_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :delete %></p>
