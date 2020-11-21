@@ -87,11 +87,11 @@ Be careful to watch out for which stories allow full deletion of content, and re
 * Story 2 - Story 9, Story 13 - Story 16 
 * Story 17 - Story 22
 * Story 23 - Story 26
-* Story 27 - Story 31
+* Story 27 - Story 30
 * Story 32 - Story 37
 * Story 38 - Story 41
 * Story 42 - Story 48
-* Story 49 - Story 51
+* Story 49 - Story 51, Story 31
 * Story 52 - 54
 
 ## Deploying to Heroku
@@ -594,15 +594,6 @@ When I click the cancel button for an order, the following happens:
 ```
 [ ] done
 
-User Story 31, All Merchants fulfill items on an order
-
-When all items in an order have been "fulfilled" by their merchants
-The order status changes from "pending" to "packaged"
-```
-
-```
-[ ] done
-
 User Story 32, Admin can see all orders
 
 As an admin user
@@ -928,6 +919,15 @@ For each item of mine in the order
 If the user's desired quantity is greater than my current inventory quantity for that item
 Then I do not see a "fulfill" button or link
 Instead I see a notice next to the item indicating I cannot fulfill this item
+```
+
+```
+[ ] done
+
+User Story 31, All Merchants fulfill items on an order
+
+When all items in an order have been "fulfilled" by their merchants
+The order status changes from "pending" to "packaged"
 ```
 
 ---
