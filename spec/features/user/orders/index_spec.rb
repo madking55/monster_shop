@@ -67,14 +67,13 @@ RSpec.describe 'Orders Index Page' do
         order = Order.last
 
         within "#order-#{order.id}" do
-          expect(page).to have_link(order.id)
+          expect(page).to have_link("#{order.id}")
           expect(page).to have_content("Created On: #{order.created_at}")
           expect(page).to have_content("Updated On: #{order.updated_at}")
           expect(page).to have_content("Status: #{order.status}")
           expect(page).to have_content("#{order.total_items_quantity} items")
           expect(page).to have_content("Total: $#{order.grandtotal}")
         end
-
       end
     end
   end
