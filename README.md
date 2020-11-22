@@ -674,7 +674,7 @@ My URI route should be "/merchant/items"
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 37, Admin can see a merchant's dashboard
 
