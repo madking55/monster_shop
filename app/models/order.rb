@@ -20,4 +20,18 @@ class Order <ApplicationRecord
       item_order.item.update(inventory: item_order.item.inventory + item_order.quantity)
     end
   end
+
+  def merchant_quantity(merchant_id)
+    item_orders
+      .joins("JOIN items ON item_orders.item_id = items.id")
+      .where("items.merchant_id = #{merchant_id}")
+      .sum("item_orders.quantity")
+  end
+
+  def merchant_subtotal(merchant_id)
+    item_orders
+    .joins("JOIN items ON item_orders.item_id = items.id")
+    .where("items.merchant_id = #{merchant_id}")
+    .sum('item_orders.price * item_orders.quantity')
+  end
 end

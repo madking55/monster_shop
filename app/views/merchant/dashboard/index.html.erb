@@ -1,3 +1,15 @@
 <h1>Merchant: <%= @merchant.name %></h1>
 <p><%= @merchant.address %></p>
 <p><%= @merchant.city %> <%= @merchant.state %> <%= @merchant.zip %></p>
+
+<section class='orders'>
+  <h2>Pending Orders</h2>
+  <% @merchant.pending_orders.distinct.each do |order| %>
+    <section id="order-<%= order.id %>">
+      <%= link_to order.id, "/merchant/orders/#{order.id}" %>
+      <p>Created On: <%= order.created_at  %></p>
+      <p>Total Quantity: <%= order.merchant_quantity(@merchant.id) %></p>
+      <p>Total Value: <%= number_to_currency(order.merchant_subtotal(@merchant.id)) %></p>
+    </section>
+  <% end %>
+</section>
