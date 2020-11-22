@@ -646,7 +646,7 @@ I see the name and full address of the merchant I work for
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 35, Merchant Dashboard displays Orders
 

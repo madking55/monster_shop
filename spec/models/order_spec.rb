@@ -48,5 +48,15 @@ describe Order, type: :model do
       expect(@tire.inventory).to eq(14)
       expect(@pull_toy.inventory).to eq(35)
     end
+
+    it '#merchant_quantity(merchant_id)' do
+      expect(@order_1.merchant_quantity(@meg.id)).to eq(2)
+      expect(@order_1.merchant_quantity(@brian.id)).to eq(3)
+    end
+
+    it '#merchant_subtotal(merchant_id)' do
+      expect(@order_1.merchant_subtotal(@meg.id)).to eq(200)
+      expect(@order_1.merchant_subtotal(@brian.id)).to eq(30)
+    end
   end
 end
