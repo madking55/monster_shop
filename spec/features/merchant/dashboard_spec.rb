@@ -35,7 +35,7 @@ RSpec.describe 'Merchant Dashboard' do
         expect(page).not_to have_css("#order-#{@order_1.id}")
 
         within("#order-#{@order_2.id}") do
-          expect(page).to have_link(@order_2.id)
+          expect(page).to have_link("#{@order_2.id}")
           expect(page).to have_content("Created On: #{@order_2.created_at}")
           expect(page).to have_content("Total Quantity: #{@order_2.merchant_quantity(@mike.id)}")
           expect(page).to have_content("Value: $#{@order_2.merchant_subtotal(@mike.id)}")
@@ -45,7 +45,7 @@ RSpec.describe 'Merchant Dashboard' do
       it 'I can link to an order show page' do
         visit merchant_dashboard_path
  
-        click_link @order_2.id
+        click_link("#{@order_2.id}")
  
         expect(current_path).to eq("/merchant/orders/#{@order_2.id}")
       end
