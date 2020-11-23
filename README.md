@@ -703,7 +703,7 @@ And I see a flash message that the merchant's account is now disabled
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 39, Disabled Merchant Item's are inactive
 
