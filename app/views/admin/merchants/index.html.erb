@@ -1,0 +1,10 @@
+<h1 align = "center">Merchants</h1>
+<p align="center"><%= link_to "New Merchant", "/merchants/new" %></p>
+<section class='merchants'>
+  <% @merchants.each do |merchant| %>
+    <section id="merchant-<%= merchant.id %>">>
+      <h2><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></h2>
+       <%= button_to 'Disable', "/admin/merchants/#{merchant.id}", method: :patch if merchant.status == 'enabled' %>
+    </section>
+  <% end %>
+</section>
