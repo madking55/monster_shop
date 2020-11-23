@@ -54,5 +54,44 @@ RSpec.describe 'Admin Merchant Index Page' do
       expect(@pencil.active?).to be false
       expect(page).to_not have_css("#item-#{@pencil.id}")
     end
+
+    it 'I can enable a merchant account' do
+      visit admin_merchants_path
+
+      within("#merchant-#{@mike.id}") do
+        expect(page).to_not have_button('Enable')
+      end
+      
+      expect(@meg.status).to eq('disabled')
+
+      within("#merchant-#{@meg.id}") do
+        click_button 'Enable'
+      end
+
+      expect(current_path).to eq(admin_merchants_path)
+
+      @meg.reload
+
+      expect(@meg.status).to eq('enabled')
+
+      within("#merchant-#{@meg.id}") do
+        expect(page).to_not have_button('Enable')
+      end
+      expect(page).to have_content("#{@meg.name} has been enabled")
+    end
+
+    it 'when enabling a merchant all their items are activated' do
+      visit admin_merchants_path
+
+      within("#merchant-#{@meg.id}") do
+        click_button 'Enable'
+      end
+
+      visit items_path
+
+      @tire.reload
+      expect(@tire.active?).to be true
+      expect(page).to have_css("#item-#{@tire.id}")
+    end
   end
 end

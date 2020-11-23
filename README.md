@@ -714,7 +714,7 @@ Then all of that merchant's items should be deactivated
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 40, Admin enables a merchant account
 
@@ -727,7 +727,7 @@ And I see a flash message that the merchant's account is now enabled
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 41, Enabled Merchant Item's are active
 
