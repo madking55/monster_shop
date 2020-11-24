@@ -746,7 +746,7 @@ Merchants need CRUD functionality for items in the database. These stories will 
 Admin users share all management functionality, but the routes will be much longer, like "/admin/merchants/8/items" and "/admin/merchants/8/items/6" and so on.
 
 ```
-[ ] done
+[X] done
 
 User Story 42, Merchant deactivates an item
 
@@ -767,7 +767,7 @@ I see the item is now inactive
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 43, Merchant activates an item
 
