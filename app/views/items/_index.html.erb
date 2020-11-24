@@ -22,10 +22,13 @@
       <p>Price: <%=number_to_currency(item.price) %></p>
       <p>Inventory: <%= item.inventory %></p>
       <p><%= item.active? ? "Active" : "Inactive" %></p>
-      <% if (current_user && current_user.merchant_id) && item.active? %>
-        <%= button_to 'Inactivate', "/merchant/items/#{item.id}", method: :patch %>
-      <% elsif (current_user && current_user.merchant_id) && !item.active? %>
-        <%= button_to 'Activate', "/merchant/items/#{item.id}", method: :patch %>
+      <% if current_merchant_user? %>
+          <% if item.active? %>
+            <%= button_to 'Inactivate', "/merchant/items/#{item.id}", method: :patch %>
+          <% elsif !item.active? %>
+            <%= button_to 'Activate', "/merchant/items/#{item.id}", method: :patch %>
+          <% end %>
+          <%= button_to 'Delete', "/merchant/items/#{item.id}", method: :delete if item.orders.empty? %>
       <% end %>
     </section>
   <% end %>
