@@ -15,13 +15,12 @@ RSpec.describe "Create Merchant Items" do
         expect(page).to have_link "Add New Item"
       end
 
-      it 'I can add a new item by filling out a form' do
+      it 'I can add a new item by filling out a form without image url' do
         visit "/merchant/items"
 
         name = "Chamois Buttr"
         price = 18
         description = "No more chaffin'!"
-        image_url = "https://images-na.ssl-images-amazon.com/images/I/51HMpDXItgL._SX569_.jpg"
         inventory = 25
 
         click_on "Add New Item"
@@ -31,7 +30,6 @@ RSpec.describe "Create Merchant Items" do
         fill_in :name, with: name
         fill_in :price, with: price
         fill_in :description, with: description
-        fill_in :image, with: image_url
         fill_in :inventory, with: inventory
 
         click_button "Create Item"
@@ -39,19 +37,18 @@ RSpec.describe "Create Merchant Items" do
         new_item = Item.last
 
         expect(current_path).to eq("/merchant/items")
-        expect(new_item.name).to eq(name)
-        expect(new_item.price).to eq(price)
-        expect(new_item.description).to eq(description)
-        expect(new_item.image).to eq(image_url)
-        expect(new_item.inventory).to eq(inventory)
-        expect(Item.last.active?).to be(true)
-        expect("#item-#{Item.last.id}").to be_present
-        expect(page).to have_content(name)
-        expect(page).to have_content("Price: $#{new_item.price}")
-        expect(page).to have_css("img[src*='#{new_item.image}']")
-        expect(page).to have_content("Active")
-        expect(page).to have_content(new_item.description)
-        expect(page).to have_content("Inventory: #{new_item.inventory}")
+        expect(page).to have_content("#{new_item.name} has been added")
+
+        placeholder_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSdrF1u_GSYOgpnRJ-2EC87fkfF8sVBC2LZ4A&usqp=CAU"
+        
+        within("#item-#{new_item.id}") do
+          expect(page).to have_content(new_item.name)
+          expect(page).to have_content(new_item.description)
+          expect(page).to have_css("img[src*='#{placeholder_url}']")
+          expect(page).to have_content("Price: $#{new_item.price}")
+          expect(page).to have_content("Inventory: #{new_item.inventory}")
+          expect(page).to have_content("Active")
+        end
       end
 
       it 'I get an alert if I dont fully fill out the form' do
@@ -74,6 +71,8 @@ RSpec.describe "Create Merchant Items" do
         click_button "Create Item"
 
         expect(page).to have_content("Name can't be blank and Inventory can't be blank")
+        expect(find_field('Price').value).to eq("18")
+        expect(find_field('Description').value).to eq("No more chaffin'!")
         expect(page).to have_button("Create Item")
       end
     end
