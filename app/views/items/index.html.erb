@@ -5,37 +5,4 @@
   <h1>All Items</h1>
 <% end %>
 
-<section class="statistics">
-  <h2>Most Popular Items</h2>
-  <ul id="most-popular-items">
-    <% @items.by_popularity(5, "DESC").each do |item| %>
-      <li><%= item.name %>: <%= item.total_sold %> sold</li>
-    <% end %>
-  </ul>
-  <h2>Least Popular Items</h2>
-  <ul id="least-popular-items">
-    <% @items.by_popularity(5, "ASC").each do |item| %>
-      <li><%= item.name %>: <%= item.total_sold %> sold</li>
-    <% end %>
-  </ul>
-</section>
-
-<section class="grid-container">
-  <% @items.each do |item| %>
-    <section class = "grid-item" id= 'item-<%=item.id%>'>
-      <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
-      <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-      <%= link_to(image_tag("#{item.image}", alt: "#{item.name}"), item_path(item.id), id: 'image') %>
-      <p> <%= item.description unless @merchant%> </p>
-      <p>Price: <%=number_to_currency(item.price) %> </p>
-      <p>Inventory: <%= item.inventory %> </p>
-      <% if !@merchant %>
-      <% end %>
-      <% if item.active? %>
-        <p>Active</p>
-      <% else %>
-        <p>Inactive</p>
-      <% end %>
-    </section>
-    <% end %>
-</section>
+<%= render 'index' %>

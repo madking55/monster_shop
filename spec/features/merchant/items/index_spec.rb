@@ -8,7 +8,7 @@ RSpec.describe 'Merchant Item Index Page' do
       @m_user = @mike.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
       @tire = @meg.items.create!(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
       @paper = @mike.items.create!(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
-      @pencil = @mike.items.create!(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+      @pencil = @mike.items.create!(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100, active?: false)
       @user = User.create!(name: "Bert", address: "123 Sesame St.", city: "NYC", state: "New York", zip: "10001", email: "12345@gmail.com", password: "password")
       @order_1 = @user.orders.create!(name: "Bert", address: "123 Sesame St.", city: "NYC", state: "New York", zip: "10001", status: 'packaged')
       @order_2 = @user.orders.create!(name: "Bert", address: "123 Sesame St.", city: "NYC", state: "New York", zip: "10001", status: 'pending')
@@ -25,6 +25,66 @@ RSpec.describe 'Merchant Item Index Page' do
         expect(page).to have_link('My Items')
         click_link 'My Items'
         expect(current_path).to eq('/merchant/items')
+      end
+
+      it 'I see all my items with info details' do
+        visit '/merchant/items'
+
+        within("#item-#{@paper.id}") do
+          expect(page).to have_content(@paper.name)
+          expect(page).to have_content(@paper.description)
+          expect(page).to have_content("Price: $#{@paper.price}")
+          expect(page).to have_css("img[src*='#{@paper.image}']")
+          expect(page).to have_content("Active")
+          expect(page).to have_content("Inventory: #{@paper.inventory}")
+        end
+
+        within("#item-#{@pencil.id}") do
+          expect(page).to have_content(@pencil.name)
+          expect(page).to have_content(@pencil.description)
+          expect(page).to have_content("Price: $#{@pencil.price}")
+          expect(page).to have_css("img[src*='#{@pencil.image}']")
+          expect(page).to have_content("Inactive")
+          expect(page).to have_content("Inventory: #{@pencil.inventory}")
+        end
+      end
+
+      it 'I can deactivate an item' do
+        visit '/merchant/items'
+
+        within("#item-#{@paper.id}") do
+         click_button 'Inactivate'
+        end
+
+        expect(current_path).to eq('/merchant/items')
+        expect(page).to have_content("#{@paper.name} is no longer for sale")
+
+        @m_user.reload
+
+        visit '/merchant/items'
+
+        within("#item-#{@paper.id}") do
+          expect(page).to have_content("Inactive")
+        end
+      end
+
+      it 'I can activate an item' do
+        visit '/merchant/items'
+
+        within("#item-#{@pencil.id}") do
+         click_button 'Activate'
+        end
+
+        expect(current_path).to eq('/merchant/items')
+        expect(page).to have_content("#{@pencil.name} is available for sale")
+
+        @m_user.reload
+
+        visit '/merchant/items'
+
+        within("#item-#{@pencil.id}") do
+          expect(page).to have_content("Active")
+        end
       end
   end
 end
