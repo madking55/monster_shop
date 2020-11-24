@@ -795,7 +795,7 @@ I no longer see this item on the page
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 45, Merchant adds an item
 
@@ -818,7 +818,7 @@ If I left the image field blank, I see a placeholder image for the thumbnail
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 46, Merchant cannot add an item if details are bad/missing
 
