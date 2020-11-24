@@ -4,15 +4,17 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def new
+    @merchant = current_user.merchant
   end
 
   def create
-    merchant = current_user.merchant
-    item = merchant.items.new(item_params)
-    if item.save
+    @merchant = current_user.merchant
+    @item = @merchant.items.new(item_params)
+    if @item.save
+      flash[:notice] = "#{@item.name} has been added"
       redirect_to "/merchant/items"
     else
-      flash[:error] = item.errors.full_messages.to_sentence
+      flash[:error] = @item.errors.full_messages.to_sentence
       render :new
     end
   end
