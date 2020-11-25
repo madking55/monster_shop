@@ -19,7 +19,11 @@ class Merchant::ItemsController < Merchant::BaseController
     end
   end
 
-  def update
+  def edit
+   @item = Item.find(params[:id])
+  end
+
+  def change_status
     item = Item.find(params[:id])
     item.update(active?: !item.active?)
     if item.active? 

@@ -28,6 +28,7 @@
           <% elsif !item.active? %>
             <%= button_to 'Activate', "/merchant/items/#{item.id}", method: :patch %>
           <% end %>
+          <%= link_to "Edit Item", "/merchant/items/#{item.id}/edit" %>
           <%= button_to 'Delete', "/merchant/items/#{item.id}", method: :delete if item.orders.empty? %>
       <% end %>
     </section>
