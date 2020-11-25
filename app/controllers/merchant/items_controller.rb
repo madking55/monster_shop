@@ -23,6 +23,18 @@ class Merchant::ItemsController < Merchant::BaseController
    @item = Item.find(params[:id])
   end
 
+  def update
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    if @item.save
+      flash[:notice] = 'Item updated!'
+      redirect_to '/merchant/items'
+    else
+      flash[:error] = @item.errors.full_messages.to_sentence
+      render :edit
+    end
+  end
+
   def change_status
     item = Item.find(params[:id])
     item.update(active?: !item.active?)

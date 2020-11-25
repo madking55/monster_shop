@@ -831,7 +831,7 @@ All fields are re-populated with my previous data
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 47, Merchant edits an item
 
@@ -853,7 +853,7 @@ If I left the image field blank, I see a placeholder image for the thumbnail
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 48, Merchant cannot edit an item if details are bad/missing
 

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index', as: :dashboard
     resources :orders, only: :show
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
+    put '/items/:id/change_status', to: 'items#change_status'
   end
 
   namespace :admin do

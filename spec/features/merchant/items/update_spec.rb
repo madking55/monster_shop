@@ -26,13 +26,9 @@ RSpec.describe "Update Item Page" do
         expect(find_field('Inventory').value).to eq '12'
       end
 
-      xit 'I can change and update item with the form' do
-        @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-        @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      it 'I can change and update item with the form' do
 
-        visit "/items/#{@tire.id}"
-
-        click_on "Edit Item"
+        visit "/merchant/items/#{@tire.id}/edit"
 
         fill_in 'Name', with: "GatorSkins"
         fill_in 'Price', with: 110
@@ -42,24 +38,24 @@ RSpec.describe "Update Item Page" do
 
         click_button "Update Item"
 
-        expect(current_path).to eq("/items/#{@tire.id}")
-        expect(page).to have_content("GatorSkins")
-        expect(page).to_not have_content("Gatorskins")
-        expect(page).to have_content("Price: $110")
-        expect(page).to have_content("Inventory: 11")
-        expect(page).to_not have_content("Inventory: 12")
-        expect(page).to_not have_content("Price: $100")
-        expect(page).to have_content("They're a bit more expensive, and they kinda do pop sometimes, but whatevs.. this is retail.")
-        expect(page).to_not have_content("They'll never pop!")
+        expect(current_path).to eq('/merchant/items')
+        expect(page).to have_content('Item updated!')
+
+        within("#item-#{@tire.id}") do
+          expect(page).to have_content("GatorSkins")
+          expect(page).to_not have_content("Gatorskins")
+          expect(page).to have_content("Price: $110")
+          expect(page).to have_content("Inventory: 11")
+          expect(page).to_not have_content("Inventory: 12")
+          expect(page).to_not have_content("Price: $100")
+          expect(page).to have_content("They're a bit more expensive, and they kinda do pop sometimes, but whatevs.. this is retail.")
+          expect(page).to_not have_content("They'll never pop!")
+        end
       end
 
-      xit 'I get a flash message if entire form is not filled out' do
-        @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-        @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      it 'I get a flash message if entire form is not filled out (except image)' do
 
-        visit "/items/#{@tire.id}"
-
-        click_on "Edit Item"
+        visit "/merchant/items/#{@tire.id}/edit"
 
         fill_in 'Name', with: ""
         fill_in 'Price', with: 110
@@ -69,7 +65,7 @@ RSpec.describe "Update Item Page" do
 
         click_button "Update Item"
 
-        expect(page).to have_content("Name can't be blank and Image can't be blank")
+        expect(page).to have_content("Name can't be blank")
         expect(page).to have_button("Update Item")
       end
   end
