@@ -16,7 +16,7 @@ RSpec.describe 'Merchant Order Show Page' do
       @order_item_1 = @order_1.item_orders.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: false)
       @order_item_2 = @order_2.item_orders.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.item_orders.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
-      @order_item_4 = @order_3.item_orders.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
+      @order_item_4 = @order_2.item_orders.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
@@ -37,6 +37,33 @@ RSpec.describe 'Merchant Order Show Page' do
       end
 
       expect(page).to_not have_css("#item-order-#{@order_item_2.id}")
+    end
+
+    it 'I can fulfill order items' do
+      visit "/merchant/orders/#{@order_2.id}"
+
+      expect(page).to have_content("Status: pending")
+
+      within "#item-order-#{@order_item_3.id}" do
+        expect(page).to_not have_content('Fulfilled')
+        click_link('Fulfill')
+      end
+
+      expect(current_path).to eq("/merchant/orders/#{@order_2.id}")
+      expect(page).to have_content('Item fulfilled!')
+
+      @m_user.reload
+      @ogre.reload
+
+      visit "/merchant/orders/#{@order_2.id}"
+      expect(page).to have_content("Status: pending")
+
+      within "#item-order-#{@order_item_3.id}" do
+        expect(page).to have_content('Fulfilled')
+        expect(page).to_not have_link('Fulfill')
+      end
+
+      expect(@ogre.inventory).to eq(3)
     end
   end
 end

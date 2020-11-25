@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :orders, only: :show
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     put '/items/:id/change_status', to: 'items#change_status'
+    get '/orders/:order_id/fulfill/:item_order_id', to: 'orders#fulfill'
   end
 
   namespace :admin do
