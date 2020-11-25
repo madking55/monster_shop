@@ -595,6 +595,15 @@ When I click the cancel button for an order, the following happens:
 ```
 [ ] done
 
+User Story 31, All Merchants fulfill items on an order
+
+When all items in an order have been "fulfilled" by their merchants
+The order status changes from "pending" to "packaged"
+```
+
+```
+[ ] done
+
 User Story 32, Admin can see all orders
 
 As an admin user
@@ -891,7 +900,7 @@ For each item, I see the following information:
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 50, Merchant fulfills part of an order
 
@@ -921,16 +930,6 @@ If the user's desired quantity is greater than my current inventory quantity for
 Then I do not see a "fulfill" button or link
 Instead I see a notice next to the item indicating I cannot fulfill this item
 ```
-
-```
-[ ] done
-
-User Story 31, All Merchants fulfill items on an order
-
-When all items in an order have been "fulfilled" by their merchants
-The order status changes from "pending" to "packaged"
-```
-
 ---
 
 ## User Management by Admins

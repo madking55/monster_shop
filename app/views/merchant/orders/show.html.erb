@@ -1,11 +1,17 @@
 <h2><%= @order.user.name %></h2>
  <p><%= @order.user.address %></p>
  <p><%= @order.user.city %> <%= @order.user.state %> <%= @order.user.zip %></p>
+ <p>Status: <%= @order.status %></p>
 
  <% @merchant.item_orders_by_order(@order.id).each do |item_order| %>
    <section id="item-order-<%= item_order.id %>">
      <%= link_to item_order.item.name, "/merchant/items/#{item_order.item.id}" %>
      <p>Price: <%= number_to_currency(item_order.price) %></p>
      <p>Quantity: <%= item_order.quantity %></p>
+      <% if item_order.fulfilled? %>
+       <p>Fulfilled</p>
+     <% else %>
+       <%= link_to 'Fulfill', "/merchant/orders/#{@order.id}/fulfill/#{item_order.id}" %>
+     <% end %>
    </section>
  <% end %>
