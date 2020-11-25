@@ -919,7 +919,7 @@ If I have already fulfilled this item, I see text indicating such.
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 51, Merchant cannot fulfill an order due to lack of inventory
 

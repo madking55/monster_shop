@@ -6,7 +6,7 @@ class Merchant::OrdersController < Merchant::BaseController
 
   def fulfill
     item_order = ItemOrder.find(params[:item_order_id])
-    item_order.fulfill
+    item_order.fulfill if item_order.fulfillable?
     flash[:notice] = 'Item fulfilled!'
     redirect_to "/merchant/orders/#{params[:order_id]}"
   end
