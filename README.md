@@ -874,7 +874,7 @@ Merchants must "fulfill" each ordered item for users. They will visit an order s
 Admin can ship orders (taken care of in user story 33). Admin can fulfill items in an order on behalf of a merchant (this is an extension).
 
 ```
-[ ] done
+[X] done
 
 User Story 49, Merchant sees an order show page
 
