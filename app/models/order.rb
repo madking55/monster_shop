@@ -21,6 +21,10 @@ class Order <ApplicationRecord
     end
   end
 
+  def is_packaged?
+    update(status: 'packaged') if item_orders.distinct.pluck(:fulfilled) == [true]
+  end
+
   def merchant_quantity(merchant_id)
     item_orders
       .joins("JOIN items ON item_orders.item_id = items.id")

@@ -76,5 +76,21 @@ RSpec.describe 'Merchant Order Show Page' do
         expect(page).to have_content('Insufficient Inventory')
       end
     end
+
+    it 'when all item_orders are fullfiled the order is packaged' do
+      visit "/merchant/orders/#{@order_2.id}"
+
+       within "#item-order-#{@order_item_3.id}" do
+         click_link('Fulfill')
+       end
+
+       expect(page).to have_content("Status: pending")
+
+       within "#item-order-#{@order_item_4.id}" do
+         click_link('Fulfill')
+       end
+
+       expect(page).to have_content("Status: packaged")
+    end
   end
 end

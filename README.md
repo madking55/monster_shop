@@ -593,7 +593,7 @@ When I click the cancel button for an order, the following happens:
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 31, All Merchants fulfill items on an order
 
