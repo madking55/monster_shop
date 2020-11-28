@@ -965,7 +965,7 @@ Next to each user's name I see what type of user they are
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 54, Admin User Profile Page
 
