@@ -936,7 +936,7 @@ Instead I see a notice next to the item indicating I cannot fulfill this item
 Admins will need a way to view a list of all regular users and view their profile and order data.
 
 ```
-[ ] done
+[X] done
 
 User Story 52, Admin Merchant Index Page
 

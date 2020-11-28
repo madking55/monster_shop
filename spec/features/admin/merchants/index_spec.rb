@@ -93,5 +93,26 @@ RSpec.describe 'Admin Merchant Index Page' do
       expect(@tire.active?).to be true
       expect(page).to have_css("#item-#{@tire.id}")
     end
+
+    it 'I can see all merchants in the system' do
+      visit admin_merchants_path
+
+      within("#merchant-#{@meg.id}") do
+        expect(page).to have_link(@meg.name)
+        expect(page).to have_content(@meg.city)
+        expect(page).to have_content(@meg.state)
+        expect(page).to have_button('Enable')
+      end
+
+      within("#merchant-#{@mike.id}") do
+        expect(page).to have_link(@mike.name)
+        expect(page).to have_content(@mike.city)
+        expect(page).to have_content(@mike.state)
+        expect(page).to have_button('Disable')
+        click_on "#{@mike.name}"
+      end
+
+      expect(current_path).to eq("/admin/merchants/#{@mike.id}")
+    end
   end
 end
