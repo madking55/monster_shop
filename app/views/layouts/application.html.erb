@@ -25,6 +25,7 @@
             <%= link_to 'Merchant Dashboard', merchant_dashboard_path %>
            <% elsif current_user.admin? %>
             <%= link_to 'Admin Dashboard', admin_dashboard_path %>
+            <%= link_to 'Users', admin_users_path %>
           <% end %>
        <% end %>
        
