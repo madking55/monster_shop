@@ -602,7 +602,7 @@ The order status changes from "pending" to "packaged"
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 32, Admin can see all orders
 
@@ -624,7 +624,7 @@ Orders are sorted by "status" in this order:
 ```
 
 ```
-[ ] done
+[X] done
 
 User Story 33, Admin can "ship" an order
 
